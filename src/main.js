@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router/index'
+import Rem from './assets/rem'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)

@@ -1,22 +1,21 @@
 <template>
   <div id="app">
-    <header></header>
+    <header-bar></header-bar>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+  import HeaderBar from './components/headerbar'
+
+  export default {
+    name: 'app',
+    components: {
+      HeaderBar
+    }
+  }
+
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import './assets/style.css';
 </style>

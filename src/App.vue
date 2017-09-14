@@ -1,19 +1,18 @@
 <template>
   <div id="app">
-    <header-bar></header-bar>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import HeaderBar from './components/headerbar'
+  // import PageFrame from './view/PageFrame.vue'
 
   export default {
     name: 'app',
-    components: {
-      HeaderBar
-    }
+    // components: {
+    //   PageFrame
+    // }
   }
-
 </script>
 
 <style>

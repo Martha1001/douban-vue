@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/view/home'
-import Movie from '@/view/movie'
-import Book from '@/view/book'
-import Status from '@/view/status'
-import Group from '@/view/group'
+import Page from '@/view/PageFrame'
+import Home from '@/view/HomeView'
+import Movie from '@/view/MovieView'
+import Book from '@/view/BookView'
+import Status from '@/view/StatusView'
+import Group from '@/view/GroupView'
 
 Vue.use(Router)
 
@@ -12,33 +13,41 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'All',
-      component: Home
-    },
-    {
-      path: '/',
-      name: 'Home',
-      component: Home
-    },
-    {
-      path: '/movie',
-      name: 'Movie',
-      component: Movie
-    },
-    {
-      path: '/book',
-      name: 'Book',
-      component: Book
-    },
-    {
-      path: '/status',
-      name: 'Status',
-      component: Status
-    },
-    {
-      path: '/group',
-      name: 'Group',
-      component: Group
+      name: 'all',
+      component: Page,
+      children:[
+        {
+          path: '',
+          name: 'Home',
+          component: Home
+        },
+        {
+          path: 'home',
+          name: 'Home',
+          component: Home
+        },
+        {
+          path: 'movie',
+          name: 'Movie',
+          component: Movie
+        },
+        {
+          path: 'book',
+          name: 'Book',
+          component: Book
+        },
+        {
+          path: 'status',
+          name: 'Status',
+          component: Status
+        },
+        {
+          path: 'group',
+          name: 'Group',
+          component: Group
+        }
+      ]
     }
+    
   ]
 })

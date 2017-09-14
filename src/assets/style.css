@@ -27,6 +27,7 @@ q:before, q:after {
   content: ”;
 }
 a, ins {
+  color: #333;
   text-decoration: none;
 }
 
@@ -38,4 +39,13 @@ a, ins {
   height: 0;
   overflow: hidden;
   clear: both;
+}
+
+
+.header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 1px solid #eee;
 }

@@ -22,13 +22,17 @@
         <li><a href="#" style="color: rgb(66, 189, 86);">市集<span>购买原创</span></a></li>
       </ul>
     </div>
-
+    <dialog-nav></dialog-nav>
   </div>
 </template>
 
 <script>
+  import DialogNav from '../components/DialogNav.vue'
   export default {
     name: 'dialog',
+    components:{
+      DialogNav
+    },
     methods: {
       CloseDialog() {
         this.$emit('Close')
@@ -59,7 +63,7 @@
     font-size: 14px;
   }
   .header form{
-    padding: 10px 20px 10px 60px;
+    padding: 10px 20px 10px 65px;
   }
   .header form input{
     height: 30px;

@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="flex-box">
-      <h1 class="hd-logo"><router-link to="/">豆瓣</router-link></h1>
+      <router-link to="/"><h1 class="hd-logo">豆瓣</h1></router-link>
       <div class="hd-nav">
         <ul class="f-cl">
           <li>

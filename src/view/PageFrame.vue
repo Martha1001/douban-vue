@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<header-bar @Open="openit"></header-bar>
-		<router-view></router-view>
+		<router-view class="m-bd"></router-view>
 		<dialog-view v-show="DialogStatus" @Close="closeit"></dialog-view>
 	</div>
 </template>
@@ -33,5 +33,7 @@
 </script>
 
 <style scoped>
-
+.m-bd{
+	padding-top: 47px;
+}
 </style>

@@ -39,5 +39,9 @@
     font-size: 14px;
     text-align: center;
     background: #eee;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 </style>

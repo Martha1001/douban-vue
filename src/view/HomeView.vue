@@ -3,7 +3,7 @@
     <quick-nav></quick-nav>
     <div>
       <home-list></home-list>
-      <!-- <buffer></buffer> -->
+      <!-- <Loading></Loading> -->
     </div>
   </div>
 </template>
@@ -11,13 +11,13 @@
 <script>
   import QuickNav from '../components/QuickNav.vue'
   import HomeList from '../components/HomeList.vue'
-  import Buffer from '../components/Buffer.vue'
+  import Loading from '../components/Loading.vue'
   export default {
     name: 'home',
     components: {
       QuickNav,
       HomeList,
-      Buffer
+      Loading
     }
   }
 

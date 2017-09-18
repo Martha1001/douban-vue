@@ -20,9 +20,6 @@ ul,li {
 caption, th {
   text-align: left;
 }
-h1, h2, h3, h4, h5, h6 {
-  font-size: 1.0em;
-}
 q:before, q:after {
   content: ”;
 }
@@ -31,7 +28,10 @@ a, ins {
   text-decoration: none;
 }
 
-
+body{
+  max-width: 650px;
+  margin: 0 auto;
+}
 
 .f-cl:after{
   display: block;
@@ -39,6 +39,12 @@ a, ins {
   height: 0;
   overflow: hidden;
   clear: both;
+}
+.f-tof{
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 
@@ -48,4 +54,5 @@ a, ins {
   left: 0;
   width: 100%;
   border-bottom: 1px solid #eee;
+  z-index: 10;
 }

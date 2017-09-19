@@ -16,18 +16,6 @@
           </div>
         </router-link>
       </li>
-      <li>
-        <router-link to="/">
-          <div class="ct">
-            <h3>等待一年，终于有这部高分剧陪我一起丧了</h3>
-            <p>下班之后，睡觉以前，让好电影与你相伴。新一季的《马男波杰克》依旧丧出天际。最值得推荐的影视内容，都在这里！</p>
-          </div>
-          <div class="feed">
-            <span class="author">by.豆瓣电影</span>
-            <span class="from">from.今晚我有空</span>
-          </div>
-        </router-link>
-      </li>
     </ul>
   </div>
 

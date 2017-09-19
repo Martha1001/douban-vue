@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+Vue.use(Router)
+
 import Page from '@/view/PageFrame'
 import Home from '@/view/HomeView'
 import Movie from '@/view/MovieView'
@@ -8,8 +10,6 @@ import Status from '@/view/StatusView'
 import Group from '@/view/GroupView'
 import Login from '@/view/LoginView'
 import Register from '@/view/RegisterView'
-
-Vue.use(Router)
 
 export default new Router({
   // mode:'history',

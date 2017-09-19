@@ -3,10 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router/index'
+import store from './store/index'
 import Rem from './assets/rem'
-import Vuex from 'vuex'
-
-Vue.use(Vuex)
 
 // Vue.config.productionTip = false
 
@@ -14,6 +12,7 @@ Vue.use(Vuex)
 var Vm = new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: {
     App

@@ -3,7 +3,7 @@
     <quick-nav></quick-nav>
     <div>
       <home-list></home-list>
-      <!-- <Loading></Loading> -->
+      <Loading></Loading>
     </div>
   </div>
 </template>

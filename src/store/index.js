@@ -5,7 +5,7 @@ Vue.use(Vuex)
 import activity from './modules/activity'
 
 
-var store = new Vuex.Store({
+export default new Vuex.Store({
   modules:{
     activity,
   }

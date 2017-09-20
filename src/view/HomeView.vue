@@ -2,12 +2,15 @@
   <div class="home">
     <quick-nav></quick-nav>
     <home-list :items="events"></home-list>
-    <Loading></Loading>
+    <infinite-loading :on-insinite="onInfinite" ref="infiniteLoading">
+      <Loading slot="spinner"></Loading>
+    </infinite-loading>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+  import { mapState, mapActions } from 'vuex'
+  import InfiniteLoading from 'vue-infinite-loading'
   import QuickNav from '../components/QuickNav.vue'
   import HomeList from '../components/HomeList.vue'
   import Loading from '../components/Loading.vue'
@@ -17,20 +20,25 @@ import { mapState, mapActions } from 'vuex'
     components: {
       QuickNav,
       HomeList,
-      Loading
+      Loading,
+      InfiniteLoading
     },
     computed: {
-      // Getting Vuex State from store/modules/activities
       ...mapState({
-        events: state => state.activities.events
+        events: state => state.activity.events
       })
     },
     methods: {
-    // Dispatching Actions
-    ...mapActions([
-      'loadMore'
-    ])
-  }
+      onInfinite(){
+        this.loadMore()
+        setTimeout(function(){
+          this.$refs.infiniteLoading.$emit('$infiniteLoading:loaded')
+        },1000)
+      },
+      ...mapActions([
+        'loadMore'
+      ])
+    }
   }
 
 </script>

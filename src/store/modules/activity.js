@@ -10,7 +10,7 @@ export default {
   mutations: {
     LOAD_MORE(state, load) {
       state.skip += 3
-      state.events = state.events.concat(load.data.events)
+      state.events = state.events.concat(load.data)
     },
     // GET_EVENT_DETAIL(state, getevent) {
 
@@ -26,7 +26,7 @@ export default {
           if (!err) {
             commit({
               type: 'LOAD_MORE',
-              data: res.body
+              data: res.body.events
             })
           } else {
             console.log(err)

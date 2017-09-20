@@ -1,18 +1,18 @@
 <template>
   <div class="home-list">
     <ul>
-      <li>
+      <li v-for="item in items">
         <router-link to="/">
           <div class="ct f-cl">
             <div class="img-wrap">
               <img src="../assets/avatar.png" alt="">
             </div>
-            <h3>等待一年，终于有这部高分剧陪我一起丧了</h3>
+            <h3>{{item.title}}</h3>
             <p>下班之后，睡觉以前，让好电影与你相伴。新一季的《马男波杰克》依旧丧出天际。最值得推荐的影视内容，都在这里！</p>
           </div>
           <div class="feed">
-            <span class="author">by.豆瓣电影</span>
-            <span class="from">from.今晚我有空</span>
+            <span class="author">by.{{item.category_name}}</span>
+            <span class="from" v-if="item.subcategory_name">from.{{item.subcategory_name}}</span>
           </div>
         </router-link>
       </li>
@@ -22,7 +22,7 @@
 </template>
 <script>
 export default {
-
+  props:["items"]
 }
 </script>
 

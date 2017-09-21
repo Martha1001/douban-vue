@@ -4,6 +4,8 @@ Vue.use(Router)
 
 import Page from '@/view/PageFrame'
 import Home from '@/view/HomeView'
+import Activity from '@/view/ActivityView'
+
 import Movie from '@/view/MovieView'
 import Book from '@/view/BookView'
 import Status from '@/view/StatusView'
@@ -22,12 +24,17 @@ export default new Router({
         {
           path: '/',
           name: 'Home',
-          component: Home 
+          component: Activity 
         },
         {
           path: '/home',
           name: 'Home',
           component: Home
+        },
+        {
+          path: '/activity/:id',
+          name: 'Activity',
+          component: Activity
         },
         {
           path: '/movie',

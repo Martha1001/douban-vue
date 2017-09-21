@@ -1,10 +1,11 @@
 <template>
   <div class="home">
     <quick-nav></quick-nav>
+    <span @click="loadMore">loadMore</span>    
     <home-list :items="events"></home-list>
-    <infinite-loading :on-insinite="onInfinite" ref="infiniteLoading">
-      <Loading slot="spinner"></Loading>
-    </infinite-loading>
+    <!-- <infinite-loading @infinite="infiniteHandler">
+      <loading slot="spinner"></loading>
+    </infinite-loading> -->
   </div>
 </template>
 
@@ -17,6 +18,9 @@
 
   export default {
     name: 'home',
+    data(){
+      return{}
+    },
     components: {
       QuickNav,
       HomeList,
@@ -29,10 +33,10 @@
       })
     },
     methods: {
-      onInfinite(){
-        this.loadMore()
-        setTimeout(function(){
-          this.$refs.infiniteLoading.$emit('$infiniteLoading:loaded')
+      infiniteHandler($state){
+        setTimeout(()=>{
+          this.loadMore()
+          $state.loaded();
         },1000)
       },
       ...mapActions([

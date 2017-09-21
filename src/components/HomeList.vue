@@ -2,17 +2,17 @@
   <div class="home-list">
     <ul>
       <li v-for="item in items">
-        <router-link to="/">
+        <router-link to="{name:'Activity',params:{id:item.id}}">
           <div class="ct f-cl">
             <div class="img-wrap">
-              <img src="../assets/avatar.png" alt="">
+              <img :src="item.image" alt="">
             </div>
             <h3>{{item.title}}</h3>
-            <p>下班之后，睡觉以前，让好电影与你相伴。新一季的《马男波杰克》依旧丧出天际。最值得推荐的影视内容，都在这里！</p>
+            <p>{{item.content | subStr}}</p>
           </div>
           <div class="feed">
-            <span class="author">by.{{item.category_name}}</span>
-            <span class="from" v-if="item.subcategory_name">from.{{item.subcategory_name}}</span>
+            <span class="author">by：{{item.category_name}}</span>
+            <span class="from" v-if="item.subcategory_name">from：{{item.subcategory_name}}</span>
           </div>
         </router-link>
       </li>
@@ -22,7 +22,18 @@
 </template>
 <script>
 export default {
-  props:["items"]
+  props:{
+    items:{
+      type:Array,
+      required: true
+    }
+  },
+  filters:{
+    subStr:function(val){
+      let newVal = val.replace(/<.*?>/g,'')
+      return newVal.slice(0,30)
+    }
+  }
 }
 </script>
 

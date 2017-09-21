@@ -10,11 +10,11 @@ export default {
   mutations: {
     LOAD_MORE(state, load) {
       state.skip += 3
-      state.events = state.events.concat(load.data)
+      state.events = state.events.concat(load.data1)
     },
-    // GET_EVENT_DETAIL(state, getevent) {
-
-    // }
+    GET_EVENT_DETAIL(state, getEvent) {
+      state.eventDetail = getEvent.data2
+    }
   },
   actions: {
     loadMore({ state, commit }) {
@@ -26,16 +26,29 @@ export default {
           if (!err) {
             commit({
               type: 'LOAD_MORE',
-              data: res.body.events
+              data1: res.body.events
             })
           } else {
             console.log(err)
           }
         })
     },
-    // getEventDetail({state,commit},) {
-    //   superagent
-    //     .get
-    // }
+    getEventDetail({ state, commit }, ) {
+      return new Promise((resolve, reject) => {
+        superagent
+          .get('https://api.douban.com/v2/event/' + getEvent.id)
+          .use(jsonp)
+          .end(function (err, res) {
+            if (!err) {
+              commit({
+                type: 'GET_EVENT_DETAIL',
+                data2: res.body
+              })
+            } else {
+              console.log(err)
+            }
+          })
+      })
+    }
   }
 }

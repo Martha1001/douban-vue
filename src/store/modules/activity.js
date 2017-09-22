@@ -5,7 +5,9 @@ export default {
   state: {
     skip: 0,
     events: [],
-    eventDetail: {}
+    eventDetail: [],
+    Alook:0,
+    Ainterst:0
   },
   mutations: {
     LOAD_MORE(state, load) {
@@ -14,6 +16,12 @@ export default {
     },
     GET_EVENT_DETAIL(state, getEvent) {
       state.eventDetail = getEvent.data2
+    },
+    ADD_ALOOK(state) {
+      state.Alook++
+    },
+    ADD_AINTERST(state) {
+      state.Ainterst++
     }
   },
   actions: {
@@ -33,10 +41,10 @@ export default {
           }
         })
     },
-    getEventDetail({ state, commit }, ) {
+    getEventDetail({ state, commit }, getEvent) {
       return new Promise((resolve, reject) => {
         superagent
-          .get('https://api.douban.com/v2/event/' + getEvent.id)
+          .get('https://api.douban.com/v2/event/' + getEvent.eventId)
           .use(jsonp)
           .end(function (err, res) {
             if (!err) {
@@ -47,7 +55,18 @@ export default {
             } else {
               console.log(err)
             }
+            resolve(res)
           })
+      })
+    },
+    AddAlook({commit}){
+      commit({
+        type:'ADD_ALOOK'
+      })
+    },
+    AddAinterst({commit}){
+      commit({
+        type:'ADD_AINTERST'
       })
     }
   }

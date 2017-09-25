@@ -113,7 +113,7 @@
     font-size: 16px;
   }
 
-  .tit span {
+  .title span {
     position: relative;
     top: -1px;
     margin-left: 10px;
@@ -150,7 +150,7 @@
   }
 
   .list .label {
-    min-width: 36px;
+    min-width: 40px;
     color: #666;
   }
 
@@ -184,5 +184,8 @@
     margin-bottom: 6px;
     color: #072;
     font-size: 14px;
+  }
+  .tip{
+    color: #666;
   }
 </style>

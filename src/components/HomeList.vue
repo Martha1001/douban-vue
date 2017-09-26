@@ -2,7 +2,7 @@
   <div class="home-list">
     <ul>
       <li v-for="item in items">
-        <router-link :to="{name:'Activity',params:{id:item.id}}">
+        <router-link :to="{name:'Activity',params:{eventId:item.id}}">
           <div class="ct f-cl">
             <div class="img-wrap">
               <img :src="item.image" alt="">

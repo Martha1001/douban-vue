@@ -3,11 +3,11 @@
     <div class="img-box" v-if="type == 'imgList'">
       <h3 class="f-ct">
         <span>{{title}}</span>
-        <router-link to="#" class="more">更多</router-link>
+        <router-link to="" class="more">更多</router-link>
       </h3>
       <ul class="img-list">
         <li v-for="item in items">
-          <router-link to="">
+          <router-link :to="'subject/' + item.id" append>
             <div class="img-wrap"><img :src="item.images.large" alt=""></div>
             <p class="f-tof">{{item.title}}</p>
             <rating :rating="item.rating"></rating>
@@ -113,7 +113,7 @@
     display: inline-block;
   }
 
-   a {
+  .find-list li a {
     display: block;
     margin: 0 0px 10px 10px;
     padding: 12px 25px;

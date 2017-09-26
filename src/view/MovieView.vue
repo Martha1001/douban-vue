@@ -4,7 +4,7 @@
     <scroller title="TOP250" type="imgList" :items="topMovie"></scroller>
     <scroller title="即将上映" type="imgList" :items="newMovie"></scroller>
     <scroller title="发现好电影" type="findList" :items="findThing"></scroller>
-    <types></types>
+    <types :items="movieType" title="分类浏览"></types>
     <down-app></down-app>
   </div>
 </template>
@@ -31,6 +31,7 @@
         topMovie: state => state.movie.topMovie,
         newMovie: state => state.movie.newMovie,
         findThing: state => state.movie.findThing,
+        movieType: state => state.movie.movieType
       })
     },
     methods:{

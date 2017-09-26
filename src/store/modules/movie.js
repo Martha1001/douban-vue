@@ -50,70 +50,152 @@ export default {
         href: 'https://m.douban.com/doulist/458087',
         color: '#CC3344'
       }
+    ],
+    movieType: [
+      {
+        title: '经典',
+        href: 'movie/classic'
+      },
+      {
+        title: '冷门佳片',
+        href: 'movie/underrated'
+      },
+      {
+        title: '豆瓣高分',
+        href: 'movie/doubantop'
+      },
+      {
+        title: '动作',
+        href: 'movie/action'
+      },
+      {
+        title: '喜剧',
+        href: 'movie/comedy'
+      },
+      {
+        title: '爱情',
+        href: 'movie/love'
+      },
+      {
+        title: '悬疑',
+        href: 'movie/mystery'
+      },
+      {
+        title: '恐怖',
+        href: 'movie/horror'
+      },
+      {
+        title: '科幻',
+        href: 'movie/scifi'
+      },
+      {
+        title: '治愈',
+        href: 'movie/sweet'
+      },
+      {
+        title: '文艺',
+        href: 'movie/artfilm'
+      },
+      {
+        title: '成长',
+        href: 'movie/youth'
+      },
+      {
+        title: '动画',
+        href: 'movie/animation'
+      },
+      {
+        title: '华语',
+        href: 'movie/chinese'
+      },
+      {
+        title: '欧美',
+        href: 'movie/western'
+      },
+      {
+        title: '韩国',
+        href: 'movie/korean'
+      },
+      {
+        title: '日本',
+        href: 'movie/japanese'
+      }
     ]
   },
   mutations: {
     GET_MOVIE(state, movie) {
       switch (movie.tag) {
         case 'hotMovie':
-          state.hotMovie = movie.data
+          state.hotMovie = movie.data1
           break
         case 'topMovie':
-          state.topMovie = movie.data
+          state.topMovie = movie.data1
           break
         case 'newMovie':
-          state.newMovie = movie.data
+          state.newMovie = movie.data1
           break
         default:
-          state.hotMoviev = movie.data
+          state.hotMoviev = movie.data1
       }
+    },
+    GET_MOVIE_DETAIL(state,detail){
+      state.movieDetail = detail.data2
     }
   },
   actions: {
     getMovie({ commit }) {
-      // superagent
-      //   .get('http://api.douban.com/v2/movie/in_theaters?city=上海&count=8')
-      //   .use(jsonp)
-      //   .end((err, res) => {
-      //     if (!err) {
-      //       commit({
-      //         type: 'GET_MOVIE',
-      //         tag: 'hotMovie',
-      //         data: res.body.subjects
-      //       })
-      //     } else {
-      //       console.log(err)
-      //     }
-      //   })
-      // superagent
-      //   .get('http://api.douban.com/v2/movie/top250?count=8')
-      //   .use(jsonp)
-      //   .end((err, res) => {
-      //     if (!err) {
-      //       commit({
-      //         type: 'GET_MOVIE',
-      //         tag: 'topMovie',
-      //         data: res.body.subjects
-      //       })
-
-      //     } else {
-      //       console.log(err)
-      //     }
-      //   })
-      // superagent
-      //   .get('http://api.douban.com/v2/movie/coming_soon?count=8')
-      //   .use(jsonp)
-      //   .end((err, res) => {
-      //     if (!err) {
-      //       commit({
-      //         type: 'GET_MOVIE',
-      //         tag: 'newMovie',
-      //         data: res.body.subjects
-      //       })
-      //     } else {
-      //       console.log(err)
-      //     }
-      //   })
+      superagent
+        .get('http://api.douban.com/v2/movie/in_theaters?city=上海&count=8')
+        .use(jsonp)
+        .end((err, res) => {
+          if (!err) {
+            commit({
+              type: 'GET_MOVIE',
+              tag: 'hotMovie',
+              data1: res.body.subjects
+            })
+          }
+        })
+      superagent
+        .get('http://api.douban.com/v2/movie/top250?count=8')
+        .use(jsonp)
+        .end((err, res) => {
+          if (!err) {
+            commit({
+              type: 'GET_MOVIE',
+              tag: 'topMovie',
+              data1: res.body.subjects
+            })
+          }
+        })
+      superagent
+        .get('http://api.douban.com/v2/movie/coming_soon?count=8')
+        .use(jsonp)
+        .end((err, res) => {
+          if (!err) {
+            commit({
+              type: 'GET_MOVIE',
+              tag: 'newMovie',
+              data1: res.body.subjects
+            })
+          }
+        })
+    },
+    getMovieDetail({commit},detail){
+      return new Promise((resolve,reject)=>{
+        superagent
+          .get('http://api.douban.com/v2/movie/subject/'+detail.movieDetailId)
+          .use(jsonp)
+          .end((err,res)=>{
+            if(!err){
+              commit({
+                type:'GET_MOVIE_DETAIL',
+                data2:res.body
+              })
+            }
+            resolve(res)
+          })
+      })
     }
   }
 }

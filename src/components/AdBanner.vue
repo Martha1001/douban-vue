@@ -3,7 +3,7 @@
     <img class="bg" src="../assets/promotion_bg.jpg" alt="">
     <div class="ct f-cl">
       <div>
-        <p class="tit">{{title.adActivity}}</p>
+        <p class="tit">{{title}}</p>
         <div class="btn">
           <span class="active">极速下载</span>
           <span>打开</span>
@@ -15,16 +15,7 @@
 
 <script>
   export default {
-    data() {
-      return {
-        title: {
-          adActivity: '聊聊你的活动感受',
-          adMovie: '聊聊你的观影感受',
-          adBook: '聊聊你的阅读感受',
-          adGroup: '聊聊你的生活感受'
-        }
-      }
-    }
+    props:['title']
   }
 
 </script>

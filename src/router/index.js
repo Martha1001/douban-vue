@@ -5,8 +5,9 @@ Vue.use(Router)
 import Page from '@/view/PageFrame'
 import Home from '@/view/HomeView'
 import Activity from '@/view/ActivityView'
-
 import Movie from '@/view/MovieView'
+import Subject from '@/view/SubjectView'
+
 import Book from '@/view/BookView'
 import Status from '@/view/StatusView'
 import Group from '@/view/GroupView'
@@ -20,7 +21,7 @@ export default new Router({
       path: '/',
       name: 'all',
       component: Page,
-      children:[
+      children: [
         {
           path: '/',
           name: 'Home',
@@ -32,7 +33,7 @@ export default new Router({
           component: Home
         },
         {
-          path: '/activity/:id',
+          path: '/activity/:eventId',
           name: 'Activity',
           component: Activity
         },
@@ -41,11 +42,16 @@ export default new Router({
           name: 'Movie',
           component: Movie
         },
-        // {
-        //   path: 'book',
-        //   name: 'Book',
-        //   component: Book
-        // },
+        {
+          path: 'book',
+          name: 'Book',
+          component: Book
+        },
+        {
+          path: '/:classify/subject/:subjectId',
+          name: 'Subject',
+          component: Subject
+        },
         // {
         //   path: 'status',
         //   name: 'Status',
@@ -68,6 +74,6 @@ export default new Router({
       name: 'Register',
       component: Register
     }
-    
+
   ]
 })

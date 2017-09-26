@@ -36,15 +36,13 @@ export default {
               type: 'LOAD_MORE',
               data1: res.body.events
             })
-          } else {
-            console.log(err)
           }
         })
     },
     getEventDetail({ state, commit }, getEvent) {
       return new Promise((resolve, reject) => {
         superagent
-          .get('https://api.douban.com/v2/event/' + getEvent.eventId)
+          .get('https://api.douban.com/v2/event/' + getEvent.activityId)
           .use(jsonp)
           .end(function (err, res) {
             if (!err) {
@@ -52,8 +50,6 @@ export default {
                 type: 'GET_EVENT_DETAIL',
                 data2: res.body
               })
-            } else {
-              console.log(err)
             }
             resolve(res)
           })

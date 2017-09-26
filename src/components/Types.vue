@@ -1,111 +1,71 @@
 <template>
   <div class="types f-ct">
-    <h3>分类浏览</h3>
-    <ul class="type-list">
+    <h3>{{title}}</h3>
+    <ul class="type-list f-cl">
       <li v-for="item in items">
-        <a :href="baseUri + item.href">{{item.title}}</a>
+        <a :href="baseUri + item.href" class="f-tof">{{item.title}}</a>
       </li>
+      <li></li>
     </ul>
   </div>
 </template>
 
 <script>
   export default {
+    props: ['title','items'],
     data() {
       return {
-        baseUri: 'https://m.douban.com/',
-        items: [
-          {
-            title: '经典',
-            href: 'movie/classic'
-          },
-          {
-            title: '冷门佳片',
-            href: 'movie/underrated'
-          },
-          {
-            title: '豆瓣高分',
-            href: 'movie/doubantop'
-          },
-          {
-            title: '动作',
-            href: 'movie/action'
-          },
-          {
-            title: '喜剧',
-            href: 'movie/comedy'
-          },
-          {
-            title: '爱情',
-            href: 'movie/love'
-          },
-          {
-            title: '悬疑',
-            href: 'movie/mystery'
-          },
-          {
-            title: '恐怖',
-            href: 'movie/horror'
-          },
-          {
-            title: '科幻',
-            href: 'movie/scifi'
-          },
-          {
-            title: '治愈',
-            href: 'movie/sweet'
-          },
-          {
-            title: '文艺',
-            href: 'movie/artfilm'
-          },
-          {
-            title: '成长',
-            href: 'movie/youth'
-          },
-          {
-            title: '动画',
-            href: 'movie/animation'
-          },
-          {
-            title: '华语',
-            href: 'movie/chinese'
-          },
-          {
-            title: '欧美',
-            href: 'movie/western'
-          },
-          {
-            title: '韩国',
-            href: 'movie/korean'
-          },
-          {
-            title: '日本',
-            href: 'movie/japanese'
-          }
-        ]
+        baseUri: 'https://m.douban.com/'
       }
     }
   }
+
 </script>
 
 <style scoped>
-  .types h3{
+  .types h3 {
     margin-bottom: 15px;
     font-size: 16px;
   }
-  .type-list li{
-    display: inline-block;
-    width: 50%;
-    border: 1px solid #eee;
+
+  .type-list li {
+    position: relative;
+    box-sizing: border-box;
+    float: left;
+    width: 49%;
+    height: 40px;
+    line-height: 40px;
+    border-top: 1px solid #ddd;
   }
-  .type-list li:nth-child(even){
-    border-left: none;
+
+  .type-list li:nth-child(even) {
+    padding-left: 15px;
   }
-  .type-list li:nth-child(odd){
-    border-right: none;
+
+  .type-list li:nth-child(odd) {
+    border-right: 1px solid #ddd;
   }
-  .type-list a{
+
+  .type-list li:last-child,
+  .type-list li:nth-last-child(2) {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .type-list a {
     color: #42bd56;
+    font-size: 14px;
+  }
+
+  .type-list li:after {
+    display: inline-block;
+    content: "";
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    width: 8px;
+    height: 8px;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    transform: rotate(-45deg)
   }
 </style>

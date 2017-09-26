@@ -1,6 +1,6 @@
 <template>
   <div class="activity">
-    <ad-banner></ad-banner>
+    <ad-banner title="聊聊你的活动感受"></ad-banner>
     <div class="info f-ct" v-if="!showLoading">
       <h2 class="title">{{eventDetail.title}}<span>{{eventDetail.loc_name}}</span></h2>
       <div class="img"><img :src="eventDetail.image" alt="eventDetail.alt"></div>
@@ -71,10 +71,10 @@
       Tags
     },
     created() {
-      const id = this.$route.params.id
+      const id = this.$route.params.eventId
       this.$store.dispatch({
         type: 'getEventDetail',
-        eventId: id
+        activityId: id
       }).then((res) => {
         this.showLoading = false
       })

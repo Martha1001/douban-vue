@@ -1,5 +1,6 @@
 <template>
   <ul class="tags f-cl">
+    <h3 class="title">{{title}}</h3>
     <li v-for="item in items">
       <router-link to="/">{{item}}</router-link>
     </li>
@@ -7,22 +8,29 @@
 </template>
 
 <script>
-export default {
-  props:['items']
-}
+  export default {
+    props: ['title', 'items']
+  }
+
 </script>
 
 <style scoped>
-  .tags{
+  .tags {
     margin-bottom: 15px;
   }
-li{
-  float: left;
-  margin: 0 10px 10px 0;
-  padding: 2px 14px;
-  color: #666;
-  font-size: 13px;
-  background: #eee;
-  border-radius: 10px;
-}
+
+  .title {
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+
+  .tags li {
+    float: left;
+    margin: 0 10px 10px 0;
+    padding: 3px 15px;
+    color: #666;
+    font-size: 13px;
+    background: #eee;
+    border-radius: 10px;
+  }
 </style>

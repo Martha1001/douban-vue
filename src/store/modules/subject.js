@@ -3,9 +3,30 @@ import jsonp from 'superagent-jsonp'
 
 export default {
   state: {
-    detail: [],
+    detail: {},
     classify: '',
-    type: [],
+    tag: [],
+    type: []
+  },
+  getters: {
+    getMeta(state) {
+      if (state.classify == 'movie') {
+        return state.detail.year + ' / ' +
+          state.detail.genres.join(' / ') + ' / ' +
+          state.detail.directors.map(idx=>idx.name).join('(导演) / ') + ' (导演) / ' +
+          state.detail.casts.map(idx=>idx.name).join('(主演) / ') + ' (主演) / ' +
+          state.detail.countries.join(' / ')
+      }else if (state.classify == 'book') {
+
+      }
+    },
+    getTag(state) {
+      if (state.classify == 'movie') {
+        return state.detail.genres
+      } else if (state.classify == 'book') {
+        return state.detail.tags
+      }
+    }
   },
   mutations: {
     GET_SUBJECT(state, subject) {

@@ -19,7 +19,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'all',
+      // name: 'all',
       component: Page,
       children: [
         {
@@ -27,11 +27,11 @@ export default new Router({
           name: 'Home',
           component: Home
         },
-        {
-          path: '/home',
-          name: 'Home',
-          component: Home
-        },
+        // {
+        //   path: '/home',
+        //   name: 'Home',
+        //   component: Home
+        // },
         {
           path: '/activity/:eventId',
           name: 'Activity',

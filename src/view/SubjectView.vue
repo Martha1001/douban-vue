@@ -3,59 +3,79 @@
     <ad-banner title="聊聊你的观影感受"></ad-banner>
     <div class="subject f-ct">
       <h3 class="title f-tof">{{detail.title}}</h3>
-      <div class="ct f-cl">
-        <div class="meta-box">
+      <div class="meta-box f-cl">
+        <div class="l">
           <div class="rating-box">
             <rating :rating="detail.rating"></rating>
-            <span>{{detail.ratings_count}}人评价</span>
+            <span>{{detail.ratings_count}}人评论</span>
           </div>
-          <div class="meta">资料资料资料资料资料资料资料资料资料资料资料资料资料资料资料</div>
+          <div class="meta">{{getMeta}}</div>
         </div>
-        <div class="img-box"><img :src="detail.images.large" alt=""></div>
+        <div class="r"><img :src="detail.images.medium" alt=""></div>
       </div>
       <a class="btn-app" href="#">用APP查看影人资料</a>
-      <div class="look-interst">
-        <p class="show"><span>{{detail.wish_count}}</span>人想看，<span>{{detail.collect_count}}</span>人收藏</p>
-        <div class="btn">
-          <span>想看</span>
-          <span>收藏</span>
-        </div>
+      <div class="wish-box">
+        <a href="#">想看</a>
+        <a href="#">看过</a>
       </div>
-      <div>
-        <p>{{detail.title}}的剧情简介</p>
+      <div class="summary">
+        <p class="tit">{{detail.title}}的剧情简介</p>
         <div>{{detail.summary}}</div>
       </div>
-      <div>
-        <p>影人</p>
+      <div class="casts">
+        <p class="tit">影人</p>
+        <ul class="casts-list">
+          <li v-for="item in detail.directors">
+            <img :src="item.avatars.medium" alt="">
+            <p>{{item.name}}</p>
+            <span>导演</span>
+          </li>
+          <li v-for="item in detail.casts">
+            <img :src="item.avatars.medium" alt="">
+            <p>{{item.name}}</p>
+            <span>演员</span>
+          </li>
+        </ul>
       </div>
+      <tags title="查看更多豆瓣高分电影" :items="getTag"></tags>
     </div>
-    <tags title="查看更多豆瓣高分电影"></tags>
-    <types title="了解更多电影信息"></types>
+
+    <scroller title="推荐的豆列" type="findList" :items="findThing"></scroller>
+    <types title="了解更多电影信息" :items="movieType"></types>
     <down-app></down-app>
   </div>
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
+  import { mapState, mapGetters, mapActions } from 'vuex'
 
   import AdBanner from '../components/AdBanner.vue'
+  import Rating from '../components/Rating.vue'
   import Tags from '../components/Tags.vue'
+  import Scroller from '../components/Scroller.vue'
   import Types from '../components/Types.vue'
   import DownApp from '../components/DownApp.vue'
-  import Rating from '../components/Rating.vue'
+
 
   export default {
-    components: {
-      AdBanner,
-      Tags,
-      Types,
-      DownApp,
-      Rating
-    },
     computed: {
       ...mapState({
-        detail: state => state.subject.detail
+        detail: state => state.subject.detail,
+        movieType: state => state.movie.movieType,
+        findThing: state => state.movie.findThing,      
+      }),
+      ...mapGetters({
+        getMeta:'getMeta',
+        getTag:'getTag'
       })
+    },
+    components: {
+      AdBanner,
+      Rating,
+      Tags,
+      Scroller,
+      Types,
+      DownApp,
     },
     created() {
       const id = this.$route.params.subjectId
@@ -67,49 +87,115 @@
       })
     }
   }
+
 </script>
 
 <style scoped>
-  .title{
+  .title {
     margin: 20px 0 10px;
     font-size: 24px;
   }
-  .ct{
-    margin-bottom: 15px;
-  }
-  .rating-box{
+
+  .tit {
     margin-bottom: 10px;
-    color: #999;  
-    font-size: 14px;
-  }
-  .rating-box .rating{
-    display: inline-block;
-    margin-right: 10px; 
+    font-size: 15px;
+    color: #999;
   }
   .meta-box{
-    display: inline-block;
-    width: 63%;
-    margin-right: 4%;
-    color: #666;
+    margin-bottom: 10px;
+  }
+  .meta-box .l {
+    float: left;
+    width: 64%;
     font-size: 14px;
   }
-  .img-box{
-    float: right;
-    position: relative;
-    width: 33%;
-    padding-top: 49.5%; 
 
+  .meta-box .r {
+    position: relative;
+    float: right;
+    width: 32%;
+    padding-top: 47.36%;
   }
-  .img-box img{
+
+  .meta-box .r img {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
   }
-  .btn-app{
+  .rating-box .rating {
+    display: inline-block;
+    margin-right: 10px;
+  }
 
+  .rating-box .rating .start{
+    width: 15px;
+    height: 15px;
+  }
+  .rating-box span{
+    color: #999;
+  }
+  .meta{
+    margin: 10px 0;
+  }
+
+  .btn-app {
     color: #42bd56;
     font-size: 14px;
+  }
+
+  .wish-box {
+    display: flex;
+    margin: 20px 0 25px;
+    justify-content: space-between;
+  }
+
+  .wish-box a {
+    display: inline-block;
+    width: 48%;
+    padding: 5px 0;
+    color: #ffb712;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #ffb712;
+    border-radius: 4px;
+  }
+
+  .summary {
+    margin-bottom: 30px;
+    font-size: 14px;
+  }
+.casts{
+  margin-bottom: 20px;
+}
+  .casts-list {
+    white-space: nowrap;
+    overflow-x: auto;
+  }
+
+  .casts-list li {
+    display: inline-block;
+    width: 100px;
+    margin-left: 10px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .casts-list li:first-child {
+    margin-left: 0;
+  }
+
+  .casts-list li img {
+    width: 100%;
+    height: 143px;
+  }
+
+  .casts-list li p {
+    color: #333;
+  }
+
+  .casts-list li span {
+    color: #999;
   }
 </style>

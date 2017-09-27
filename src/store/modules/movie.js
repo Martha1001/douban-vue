@@ -145,7 +145,7 @@ export default {
   actions: {
     getMovie({ commit }) {
       superagent
-        .get('http://api.douban.com/v2/movie/in_theaters?city=上海&count=8')
+        .get('http://api.douban.com/v2/movie/in_theaters?city=上海&count=2')
         .use(jsonp)
         .end((err, res) => {
           if (!err) {
@@ -157,7 +157,7 @@ export default {
           }
         })
       superagent
-        .get('http://api.douban.com/v2/movie/top250?count=8')
+        .get('http://api.douban.com/v2/movie/top250?count=2')
         .use(jsonp)
         .end((err, res) => {
           if (!err) {
@@ -169,7 +169,7 @@ export default {
           }
         })
       superagent
-        .get('http://api.douban.com/v2/movie/coming_soon?count=8')
+        .get('http://api.douban.com/v2/movie/coming_soon?count=2')
         .use(jsonp)
         .end((err, res) => {
           if (!err) {

@@ -6,6 +6,7 @@ export default {
     hotMovie: [],
     topMovie: [],
     newMovie: [],
+    movieDetail:[],
     findThing: [
       {
         title: '同时入选IMDB250和豆瓣电影250的电影',
@@ -139,7 +140,7 @@ export default {
       }
     },
     GET_MOVIE_DETAIL(state,detail){
-      state.movieDetail = detail.data2
+      // state.movieDetail = detail.data2
     }
   },
   actions: {

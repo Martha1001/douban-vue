@@ -62,7 +62,7 @@
     overflow-x: auto;
   }
 
-  .img-list li {
+  .img-list li{
     display: inline-block;
     width: 100px;
     height: 188px;

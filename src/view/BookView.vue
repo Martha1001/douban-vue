@@ -1,10 +1,9 @@
 <template>
     <div class="movie">
-      <scroller title="影院热映" type="imgList" :items="hotMovie"></scroller>
-      <scroller title="TOP250" type="imgList" :items="topMovie"></scroller>
-      <scroller title="即将上映" type="imgList" :items="newMovie"></scroller>
-      <scroller title="发现好电影" type="findList" :items="findThing"></scroller>
-      <types :items="movieType" title="分类浏览"></types>
+      <scroller title="最受关注图书|虚构类" type="imgList" :items="imaginaryBook"></scroller>
+      <scroller title="最受关注图书|非虚构类" type="imgList" :items="unimaginaryBook"></scroller>
+      <scroller title="发现图书" type="findList" :items="findThing"></scroller>
+      <types :items="bookType" title="分类浏览"></types>
       <down-app></down-app>
     </div>
   </template>
@@ -27,20 +26,19 @@
       },
       computed:{
         ...mapState({
-          hotMovie: state => state.movie.hotMovie,
-          topMovie: state => state.movie.topMovie,
-          newMovie: state => state.movie.newMovie,
-          findThing: state => state.movie.findThing,
-          movieType: state => state.movie.movieType
+          imaginaryBook: state => state.book.imaginaryBook,
+          unimaginaryBook: state => state.book.unimaginaryBook,
+          findThing: state => state.book.findThing,
+          bookType: state => state.book.bookType
         })
       },
       methods:{
         ...mapActions([
-          'getMovie'
+          'getBook'
         ])
       },
       created(){
-        this.getMovie()
+        this.getBook()
       }
     }
   </script>

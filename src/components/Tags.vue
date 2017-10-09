@@ -2,7 +2,8 @@
   <ul class="tags f-cl">
     <h3 class="title">{{title}}</h3>
     <li v-for="item in items">
-      <router-link to="/">{{item}}</router-link>
+      <router-link v-if="!item.title" to="/">{{item}}</router-link>
+      <router-link v-else to="/">{{item.title}}</router-link>
     </li>
   </ul>
 </template>

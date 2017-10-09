@@ -138,9 +138,6 @@ export default {
         default:
           state.hotMoviev = movie.data1
       }
-    },
-    GET_MOVIE_DETAIL(state,detail){
-      // state.movieDetail = detail.data2
     }
   },
   actions: {
@@ -182,21 +179,21 @@ export default {
           }
         })
     },
-    getMovieDetail({commit},detail){
-      return new Promise((resolve,reject)=>{
-        superagent
-          .get('http://api.douban.com/v2/movie/subject/'+detail.movieDetailId)
-          .use(jsonp)
-          .end((err,res)=>{
-            if(!err){
-              commit({
-                type:'GET_MOVIE_DETAIL',
-                data2:res.body
-              })
-            }
-            resolve(res)
-          })
-      })
-    }
+    // getMovieDetail({commit},detail){
+    //   return new Promise((resolve,reject)=>{
+    //     superagent
+    //       .get('http://api.douban.com/v2/movie/subject/'+detail.movieDetailId)
+    //       .use(jsonp)
+    //       .end((err,res)=>{
+    //         if(!err){
+    //           commit({
+    //             type:'GET_MOVIE_DETAIL',
+    //             data2:res.body
+    //           })
+    //         }
+    //         resolve(res)
+    //       })
+    //   })
+    // }
   }
 }

@@ -13,11 +13,15 @@ export default {
       if (state.classify == 'movie') {
         return state.detail.year + ' / ' +
           state.detail.genres.join(' / ') + ' / ' +
-          state.detail.directors.map(idx=>idx.name).join('(导演) / ') + ' (导演) / ' +
-          state.detail.casts.map(idx=>idx.name).join('(主演) / ') + ' (主演) / ' +
+          state.detail.directors.map(idx => idx.name).join('(导演) / ') + ' (导演) / ' +
+          state.detail.casts.map(idx => idx.name).join('(主演) / ') + ' (主演) / ' +
           state.detail.countries.join(' / ')
-      }else if (state.classify == 'book') {
-
+      } else if (state.classify == 'book') {
+        return state.detail.author.join(' / ') + ' / / ' +
+          state.detail.publisher + ' / ' +
+          state.detail.pages + '页 / ' +
+          state.detail.binding + ' / ' +
+          state.detail.price
       }
     },
     getTag(state) {
@@ -55,13 +59,13 @@ export default {
             break
           case 'book':
             superagent
-              .get('https://api.douban.com/v2/')
+              .get('https://api.douban.com/v2/' + subject.classify + '/' + subject.id)
               .use(jsonp)
               .end((err, res) => {
                 if (!err) {
                   commit({
                     type: 'GET_SUBJECT',
-                    classify: subject2.classify,
+                    classify: subject.classify,
                     data1: res.body
                   })
                   resolve(res)

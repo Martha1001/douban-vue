@@ -5,7 +5,7 @@ export default {
   state: {
     imaginaryBook: [],
     unimaginaryBook: [],
-    bookDetail:[],
+    bookDetail: [],
     findThing: [
       {
         title: '小波看书',
@@ -115,9 +115,6 @@ export default {
           state.imaginaryBook = books.data1
       }
     },
-    GET_BOOK_DETAIL(state,detail){
-      state.bookDetail = detail.deta2
-    }
   },
   actions: {
     getBook({ commit }) {
@@ -145,6 +142,22 @@ export default {
             })
           }
         })
-    }
+    },
+    // getBookDetail({ commit }, detail) {
+    //   return new Promise((resolve, reject) => {
+    //     superagent
+    //       .get('https://api.douban.com/v2/book/' + detail.movieDetailId)
+    //       .use(jsonp)
+    //       .end((err, res) => {
+    //         if (!err) {
+    //           commit({
+    //             type: 'GET_MOVIE_DETAIL',
+    //             data2: res.body
+    //           })
+    //         }
+    //         resolve(res)
+    //       })
+    //   })
+    // }
   }
 }

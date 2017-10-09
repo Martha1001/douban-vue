@@ -1,6 +1,9 @@
 <template>
   <div class="subject-boxc">
-    <ad-banner title="聊聊你的观影感受"></ad-banner>
+    <div>
+      <ad-banner v-if="!detail.author" title="聊聊你的观影感受"></ad-banner>
+      <ad-banner v-else title="聊聊你的阅读感受"></ad-banner>
+    </div>
     <div class="subject f-ct">
       <h3 class="title f-tof">{{detail.title}}</h3>
       <div class="meta-box f-cl">
@@ -13,16 +16,24 @@
         </div>
         <div class="r"><img :src="detail.images.medium" alt=""></div>
       </div>
-      <a class="btn-app" href="#">用APP查看影人资料</a>
-      <div class="wish-box">
-        <a href="#">想看</a>
-        <a href="#">看过</a>
+      <a v-if="!detail.author" class="btn-app" href="#">用APP查看影人资料</a>
+      <div>
+        <div v-if="!detail.author" class="wish-box">
+          <a href="#">想看</a>
+          <a href="#">看过</a>
+        </div>
+        <div v-else class="wish-box wish-box-book">
+          <a href="#">想读</a>
+          <a href="#">在读</a>
+          <a href="#">读过</a>
+        </div>
       </div>
       <div class="summary">
-        <p class="tit">{{detail.title}}的剧情简介</p>
+        <p v-if="!detail.author" class="tit">{{detail.title}}的剧情简介</p>
+        <p v-else class="tit">{{detail.title}}的内容简介</p>
         <div>{{detail.summary}}</div>
       </div>
-      <div class="casts">
+      <div v-if="!detail.author" class="casts">
         <p class="tit">影人</p>
         <ul class="casts-list">
           <li v-for="item in detail.directors">
@@ -39,7 +50,6 @@
       </div>
       <tags title="查看更多豆瓣高分电影" :items="getTag"></tags>
     </div>
-
     <scroller title="推荐的豆列" type="findList" :items="findThing"></scroller>
     <types title="了解更多电影信息" :items="movieType"></types>
     <down-app></down-app>
@@ -62,11 +72,11 @@
       ...mapState({
         detail: state => state.subject.detail,
         movieType: state => state.movie.movieType,
-        findThing: state => state.movie.findThing,      
+        findThing: state => state.movie.findThing,
       }),
       ...mapGetters({
-        getMeta:'getMeta',
-        getTag:'getTag'
+        getMeta: 'getMeta',
+        getTag: 'getTag'
       })
     },
     components: {
@@ -101,9 +111,11 @@
     font-size: 15px;
     color: #999;
   }
-  .meta-box{
+
+  .meta-box {
     margin-bottom: 10px;
   }
+
   .meta-box .l {
     float: left;
     width: 64%;
@@ -124,19 +136,22 @@
     width: 100%;
     height: 100%;
   }
+
   .rating-box .rating {
     display: inline-block;
     margin-right: 10px;
   }
 
-  .rating-box .rating .start{
+  .rating-box .rating .start {
     width: 15px;
     height: 15px;
   }
-  .rating-box span{
+
+  .rating-box span {
     color: #999;
   }
-  .meta{
+
+  .meta {
     margin: 10px 0;
   }
 
@@ -162,13 +177,19 @@
     border-radius: 4px;
   }
 
+  .wish-box-book a {
+    width: 31%;
+  }
+
   .summary {
     margin-bottom: 30px;
     font-size: 14px;
   }
-.casts{
-  margin-bottom: 20px;
-}
+
+  .casts {
+    margin-bottom: 20px;
+  }
+
   .casts-list {
     white-space: nowrap;
     overflow-x: auto;

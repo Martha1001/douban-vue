@@ -5,7 +5,7 @@
 ## Build Setup
 
 ``` bash
-# install dependencies1
+# install dependencies
 npm install
 
 # serve with hot reload at localhost:8080

@@ -7,13 +7,11 @@ var fs = require('fs')
 
 var ep = eventproxy()
 
-var pageNum = 2
+var pageNum = 10
 var pageUrls = []
 var urlsArray = []
 var catchData = []
-
-var startDate = new Date()
-var endDate = ''
+var infoArray = {}
 
 //创建本地服务器
 http.createServer(onRequest).listen(8888)
@@ -41,6 +39,13 @@ function onRequest(request, response) {
         //获取文章页
         for (var i = 0; i < curPageUrls.length; i++) {
           var curPageUrl = curPageUrls.eq(i).attr('href')
+          var data1 = curPageUrl + '\n'
+          fs.appendFile('data.txt', data1, function (err) {
+            if (err) {
+              console.log(err)
+            }
+          })
+
           urlsArray.push(curPageUrl)
           ep.emit('getPage', curPageUrl)
         }
@@ -49,16 +54,8 @@ function onRequest(request, response) {
 
   //ep重复监听'getPage'事件pageUrls.length*20次，所有数据都依次存在curPageUrlData数组中
   ep.after('getPage', pageUrls.length * 20, function (curPageUrlData) {
-    for (var i = 0; i < curPageUrlData.length; i++) {
-      // response.write('<a href="' + curPageUrlData[i] + '">' + curPageUrlData[i] + '</a>' + '<br/>')
-      var data3 = curPageUrlData[i] + '\n'
-      fs.appendFile('data.txt', data3, function (err) {
-        if (err) {
-          console.log('写入链接列表失败')
-        }
-      })
-    }
 
+    //获取文章页
     var jsq = 0
     var getInfo = function (url, callback) {
       superagent.get(url)
@@ -69,49 +66,53 @@ function onRequest(request, response) {
 
           jsq++
           var delay = parseInt(Math.random() * 30000000 % 1000, 10)
-          // console.log('现在并发数为' + jsq + '，正在抓取' + url+ '，耗时' + delay +'毫秒')
+          console.log('当前并发数为' + jsq + '，正在抓取' + url + '，耗时' + delay + '毫秒')
 
           var $ = cheerio.load(cres.text)
-          var infoArray = {}
-          infoArray.title = $('#cb_post_title_url').text()
+          var title = $('#cb_post_title_url').text()
 
-          var url2 = url.replace('http://www.cnblogs.com/', '')
-          var zhengz = '(\S*)/p'
-          var url3 = url2.match(zhengz)
-          console.log(url)
-          // superagent.get('http://www.cnblogs.com/mvc/blog/new.aspx?blogApp=' + url4)
-          // .end((err,ares)=>{
-          //   if(err){
-          //     console.log('获取作者信息失败')
-          //   }
+          //获取ajax动态加载的作者信息
+          var url1 = url.replace('http://www.cnblogs.com/', '')
+          var idx = url1.indexOf('/')
+          var url2 = url2.slice(0, idx)
+          superagent.get('http://www.cnblogs.com/mvc/blog/news.aspx?blogApp=' + url2)
+            .end((err, ares) => {
+              if (err) {
+                console.log('获取作者信息失败')
+              }
+              
+              infoArray.url = url
+              infoArray.num = '当前并发数为: ' + jsq
+              infoArray.time = '耗时' + delay + '毫秒'
+              infoArray.title = title
 
-          //   var $ = cheerio.load(ares.text)
-          //   infoArray.name = $('#profile_block a').eq(0).text()
-          //   infoArray.age = $('#profile_block a').eq(1).text()
-          // })
+              var $ = cheerio.load(ares.text)
+              infoArray.name = $('#profile_block a').eq(0).text()
+              infoArray.age = $('#profile_block a').eq(1).text()
+              catchData.push(infoArray)
 
-          catchData.push(infoArray)
+              var data2 = JSON.stringify(infoArray) + '\n'
+              fs.appendFile('data.json', data2, function (err) {
+                if (err) {
+                  console.log(err)
+                }
+              })
+            })
 
           setTimeout(function () {
             jsq--
             callback(null, url + 'Callback content')
           }, delay)
+
         })
     }
 
+    //控制并发
     async.mapLimit(curPageUrlData, 3, function (url, callback) {
       getInfo(url, callback)
-      for (var i = 0; i < catchData.length; i++) {
-        var data2 = catchData[i] + '\n'
-        // fs.appendFile('data2.txt', data2, function(err){
-        //   console.log('写入文件失败')
-        // })
-      }
     }, function (err, result) {
       console.log(err)
     })
-
-
 
   })
 

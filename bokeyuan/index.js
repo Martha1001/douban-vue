@@ -7,7 +7,7 @@ var fs = require('fs')
 
 var ep = eventproxy()
 
-var pageNum = 10
+var pageNum = 2
 var pageUrls = []
 var urlsArray = []
 var catchData = []
@@ -74,7 +74,7 @@ function onRequest(request, response) {
           //获取ajax动态加载的作者信息
           var url1 = url.replace('http://www.cnblogs.com/', '')
           var idx = url1.indexOf('/')
-          var url2 = url2.slice(0, idx)
+          var url2 = url1.slice(0, idx)
           superagent.get('http://www.cnblogs.com/mvc/blog/news.aspx?blogApp=' + url2)
             .end((err, ares) => {
               if (err) {

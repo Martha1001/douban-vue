@@ -2,27 +2,34 @@ var superagent = require('superagent')
 var cheerio = require('cheerio')
 var async = require('async')
 var fs = require('fs')
-var sour = require('./data/list.json')
-
 require('superagent-proxy')(superagent)
 
-var detail = {}
-var jsq = 0
+var showUrl = require('./data/showUrl.json')
+var demoList = require('./data/demoList.json')
+var dataList = require('./data/dataList.json')
 
-// var getData = function (url, callback) {
-  superagent.get('http://www.jq22.com/jquery-info16515')
-    .proxy('http://218.201.98.196:3128')
-    .set('User-Agent', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36')
+var tests = []
+var jsq = 0
+var num = 2263
+var proxy = 'http://218.201.98.196:3128'
+
+var getData = function (url, callback) {
+  superagent.get(url)
+    .proxy(proxy)
+    .set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'")
     .end((err, bres) => {
       if (err) {
         console.log('获取单页出错')
       }
 
-      // jsq++
-      // var delay = parseInt(Math.random() * 30000000 % 1000, 10)
-      // console.log('当前并发数：' + jsq + '，正在爬取：' + 'test' + '，耗时：' + delay)
+      let $ = cheerio.load(bres.text)
 
-      var $ = cheerio.load(bres.text)
+      jsq++
+      var delay = parseInt(Math.random() * 30000000 % 1000, 10)
+      console.log()
+      console.log('已抓取' + num + '个，当前并发数：' + jsq + '，正在爬取：' + url + '，耗时：' + delay)
+      num++
+
       let pageurl = $('.thumbile').find('.btn-success').attr('href')
       let id = $('.thumbile').find('.btn-success').attr('href').match(/\d{5}|\d{4}/g).toString()
       let title = $('.project-header h1').text()
@@ -33,17 +40,19 @@ var jsq = 0
       let all = $('.project-content img').eq(1).attr('src')
 
       superagent.get(pageurl)
+        .proxy(proxy)
+        .set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'")
         .end((err, cres) => {
-          var $ = cheerio.load(cres.text)
+          let $ = cheerio.load(cres.text)
           let demo = $('#iframe').attr('src')
-          let time = $('#iframe').attr('src').match(/\d{12}/g).toString()
+          let time = $('#iframe').attr('src').match(/\d{12}|\d{9}|\d{8}/g).toString()
 
-          detail = {
+          let detail = {
             id: id,
             title: title,
             summary: summary,
             type: type,
-            url: 'test',
+            url: url,
             demo: demo,
             image: image,
             compatible: {
@@ -52,29 +61,23 @@ var jsq = 0
             },
             time: time
           }
-          // fs.appendFile('list.json', JSON.stringify(detail) + ',\n', function (err) {
-          //   if (err) {
-          //     console.log(err)
-          //   }
-          // })
-          sour[id] = detail
-          
-          var dest = JSON.stringify(sour)
-          fs.writeFile('./data/list.json',dest)
+
+          demoList.push(demo)
+          fs.writeFile('./data/demoList.json', JSON.stringify(demoList))
+          dataList.push(detail)
+          fs.writeFile('./data/dataList.json', JSON.stringify(dataList))
         })
-      // setTimeout(function () {
-      //   jsq--
-      //   callback(null, url + 'Callback content')
-      // }, delay)
+      setTimeout(function () {
+        jsq--
+        callback(null, url + 'Callback content')
+      }, delay)
     })
-// }
+}
 
-// async.mapLimit(urlArrays, 1, function (url, callback) {
-//   getData(url, callback)
-// }, function (err, result) {
-//   console.log(err)
-// })
-
-
+async.mapLimit(showUrl, 1, function (url, callback) {
+  getData(url, callback)
+}, function (err, result) {
+  console.log(err)
+})
 
 

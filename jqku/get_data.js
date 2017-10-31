@@ -26,7 +26,6 @@ var getData = function (url, callback) {
 
       jsq++
       var delay = parseInt(Math.random() * 30000000 % 1000, 10)
-      console.log()
       console.log('已抓取' + num + '个，当前并发数：' + jsq + '，正在爬取：' + url + '，耗时：' + delay)
       num++
 

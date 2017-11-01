@@ -10,7 +10,7 @@ require('superagent-proxy')(superagent)
 var writeDatas = require('./data/writeData.json')
 var testUrls = require('./data/test.json')
 
-var proxy = 'http://218.201.98.196:3128'
+var proxy = 'http://111.56.5.42:80'
 var pathArr = []
 var jsq = 0
 var num = 0
@@ -46,12 +46,11 @@ var setData = function (info, huidiao) {
       let cssUrls = $('link')
       for (var i = 0; i < cssUrls.length; i++) {
         let cssUrl = cssUrls.eq(i).attr('href')
-        if (cssUrl !== undefined && cssUrl.indexOf('http') < 0) {
+        if (cssUrl !== undefined && cssUrl.indexOf('http') < 0 && cssUrl.indexOf('css') >= 0) {
           pathArr.push(cssUrl)
         }
       }
       let jsUrls = $('script')
-      console.log(jsUrls.length)
       for (var i = 0; i < jsUrls.length; i++) {
         let jsUrl = jsUrls.eq(i).attr('src')
         if (jsUrl !== undefined && jsUrl.indexOf('http') < 0) {
@@ -65,34 +64,64 @@ var setData = function (info, huidiao) {
           pathArr.push(imgUrl)
         }
       }
+      let bgUrls = $('*').attr('style')
+      for (var i = 0; i < bgUrls.length; i++) {
+        let bgUrls = bgUrlss.eq(i).attr('src')
+        if (bgUrls !== undefined && bgUrls.indexOf('http') < 0) {
+          pathArr.push(bgUrls)
+        }
+      }
 
       pathArr.forEach(function (path) {
-        console.log(info.url + '/' + path)
-        superagent.get(info.url + '/' + path)
-          .proxy(proxy)
-          .set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'")
-          .end((err, bres) => {
-            if (err) {
-              console.log(err)
-            }
-            var $ = cheerio.load(bres.body)
-
-            let idx = path.lastIndexOf('/')
-            let pathC = path.slice(0, idx)
-
-            fs.mkdir(__dirname + '/static/' + info.name + '/' + pathC, function (err) {
+        let idx = path.lastIndexOf('/')
+        let pathC = path.slice(0, idx)
+        if (path.indexOf('css') >= 0 && path.indexOf('js') >= 0) {
+          superagent.get(info.url + '/' + path)
+            .proxy(proxy)
+            .set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'")
+            .buffer(true)
+            .end(function (err, bres) {
               if (err) {
-                console.log(err)
+                console.log('err')
               }
-            })
-            fs.writeFile(__dirname + '/static/' + info.name + '/' + path,
-              $('img'),
-              function (err) {
+
+              fs.mkdir(__dirname + '/static/' + info.name + '/' + pathC, function (err) {
                 if (err) {
                   console.log(err)
                 }
               })
-          })
+              fs.writeFile(__dirname + '/static/' + info.name + '/' + path,
+                bres.body,
+                function (err) {
+                  if (err) {
+                    console.log(err)
+                  }
+                })
+            })
+        } else {
+          superagent.get(info.url + '/' + path)
+            .proxy(proxy)
+            .set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'")
+            .buffer(true)
+            .end(function (err, cres) {
+              if (err) {
+                console.log('err')
+              }
+
+              fs.mkdir(__dirname + '/static/' + info.name + '/' + pathC, function (err) {
+                if (err) {
+                  console.log(err)
+                }
+              })
+              fs.writeFile(__dirname + '/static/' + info.name + '/' + path,
+                cres.text,
+                function (err) {
+                  if (err) {
+                    console.log(err)
+                  }
+                })
+            })
+        }
       })
       setTimeout(function () {
         jsq--

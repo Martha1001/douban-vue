@@ -1,7 +1,6 @@
 [ 
   {
-    http://www.jq22.com/demo/jQueryQplb201703121904/css/jq22.css
-    http://www.jq22.com/demo/jQueryQplb201703121904/js/functions.js
-    http://www.jq22.com/demo/jQueryQplb201703121904/images/jq226.jpg
+    "name": "jQuery全屏图片点击滑动手风琴",
+    "url": "http://www.jq22.com/demo/jQueryQpSfq201703122233"
   }
 ]

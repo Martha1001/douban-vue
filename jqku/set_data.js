@@ -10,7 +10,7 @@ require('superagent-proxy')(superagent)
 var writeDatas = require('./data/writeData.json')
 var testUrls = require('./data/test.json')
 
-var proxy = 'http://111.56.5.42:80'
+var proxy = 'http://221.7.1.99:8080'
 var pathArr = []
 var jsq = 0
 var num = 0
@@ -64,18 +64,18 @@ var setData = function (info, huidiao) {
           pathArr.push(imgUrl)
         }
       }
-      let bgUrls = $('*').attr('style')
+      let bgUrls = $('*')
       for (var i = 0; i < bgUrls.length; i++) {
-        let bgUrls = bgUrlss.eq(i).attr('src')
-        if (bgUrls !== undefined && bgUrls.indexOf('http') < 0) {
-          pathArr.push(bgUrls)
+        let bgUrl = bgUrls.eq(i).css('background')
+        if (bgUrl !== undefined && bgUrl.indexOf('http') < 0) {
+          pathArr.push(bgUrl.substring(bgUrl.indexOf('(')+1,bgUrl.indexOf(')')))
         }
       }
 
       pathArr.forEach(function (path) {
         let idx = path.lastIndexOf('/')
         let pathC = path.slice(0, idx)
-        if (path.indexOf('css') >= 0 && path.indexOf('js') >= 0) {
+        if (path.indexOf('css') >= 0 || path.indexOf('js') >= 0) {
           superagent.get(info.url + '/' + path)
             .proxy(proxy)
             .set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'")
@@ -91,7 +91,7 @@ var setData = function (info, huidiao) {
                 }
               })
               fs.writeFile(__dirname + '/static/' + info.name + '/' + path,
-                bres.body,
+                bres.text,
                 function (err) {
                   if (err) {
                     console.log(err)
@@ -114,7 +114,7 @@ var setData = function (info, huidiao) {
                 }
               })
               fs.writeFile(__dirname + '/static/' + info.name + '/' + path,
-                cres.text,
+                cres.body,
                 function (err) {
                   if (err) {
                     console.log(err)

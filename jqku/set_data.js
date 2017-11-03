@@ -12,6 +12,7 @@ var testUrls = require('./data/test.json')
 
 var proxy = 'http://221.7.1.99:8080'
 var pathArr = []
+var writeArr = []
 var jsq = 0
 var num = 0
 
@@ -123,10 +124,16 @@ var setData = function (info, huidiao) {
             })
         }
       })
+
+      writeArr.push(testUrls.shift())
+      fs.writeFile('./data/writeData.json', JSON.stringify(writeArr))
+      testUrls.shift()
+      fs.writeFile('./data/test.json', JSON.stringify(testUrls))
+
       setTimeout(function () {
         jsq--
         huidiao(null, info.url + 'Callback content')
-      }, delay)
+      }, delay+3000)
     })
 }
 

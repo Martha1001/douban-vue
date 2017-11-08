@@ -1,0 +1,38 @@
+*{padding: 0;margin:0; }
+body{ background-color:#2A2A2A}
+li{list-style: none;}
+#wrap{
+	width: 800px;
+	height: 360px;
+	margin:100px auto;
+}
+
+#wrap ul{}
+#wrap ul li{
+    float: left;
+    margin: 5px;
+    width: 230px;
+    height: 360px;
+    position: relative;
+    overflow: hidden;
+}
+#wrap ul li img{
+    display: block;
+}
+#wrap ul li .cove{
+    width: 230px;
+    height: 220px;
+    position: absolute;
+    top: 0;
+    left: 230px;
+    background: url(../img/new-bg.png);
+    padding: 140px 0 0 0;
+}
+#wrap ul li .cove p{
+
+	font-size: 14px;
+	font-family: 微软雅黑;
+	color:#fff;
+	text-align: center;
+
+}

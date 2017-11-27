@@ -11,6 +11,6 @@
 <style scoped>
   .loading{
     padding: 30px 0;
-    text-align: center; 
+    text-align: center;
   }
 </style>

@@ -42,14 +42,14 @@ export default {
     padding: 20px 0;
     border-bottom: 1px solid #eee;
   }
-  .ct{
+  .home-list .ct{
     margin-bottom: 8px;
   }
-  .ct h3{
+  .home-list .ct h3{
     font-size: 16px;
     margin-bottom: 8px;
   }
-  .ct p{
+  .home-list .ct p{
     color: #999;
     font-size: 12px;  
   }

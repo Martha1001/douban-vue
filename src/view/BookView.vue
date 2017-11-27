@@ -7,14 +7,14 @@
       <down-app></down-app>
     </div>
   </template>
-  
+
   <script>
     import { mapState, mapActions } from 'vuex'
-  
+
     import Scroller from '../components/Scroller.vue'
     import Types from '../components/Types.vue'
     import DownApp from '../components/DownApp.vue'
-  
+
     export default {
       data(){
         return{}
@@ -42,7 +42,7 @@
       }
     }
   </script>
-  
+
   <style scoped>
-  
+
   </style>

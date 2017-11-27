@@ -2,8 +2,8 @@
   <div class="home">
     <quick-nav></quick-nav>
     <home-list :items="events"></home-list>
-    <span @click="loadMore">loadMore</span>        
-    <!-- <infinite-loading @infinite="infiniteHandler">
+    <span @click="loadMore">loadMore</span>
+<!--     <infinite-loading @infinite="infiniteHandler">
       <loading slot="spinner"></loading>
     </infinite-loading> -->
   </div>

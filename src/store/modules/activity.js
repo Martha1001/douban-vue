@@ -36,6 +36,7 @@ export default {
               type: 'LOAD_MORE',
               data1: res.body.events
             })
+            console.log('http')
           }
         })
     },
@@ -50,6 +51,7 @@ export default {
                 type: 'GET_EVENT_DETAIL',
                 data2: res.body
               })
+              console.log('http')
             }
             resolve(res)
           })

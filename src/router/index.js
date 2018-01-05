@@ -9,10 +9,6 @@ import Movie from '@/view/MovieView'
 import Subject from '@/view/SubjectView'
 
 import Book from '@/view/BookView'
-import Status from '@/view/StatusView'
-import Group from '@/view/GroupView'
-import Login from '@/view/LoginView'
-import Register from '@/view/RegisterView'
 
 export default new Router({
   // mode:'history',
@@ -27,11 +23,6 @@ export default new Router({
           name: 'Home',
           component: Home
         },
-        // {
-        //   path: '/home',
-        //   name: 'Home',
-        //   component: Home
-        // },
         {
           path: '/activity/:eventId',
           name: 'Activity',
@@ -51,28 +42,8 @@ export default new Router({
           path: '/:classify/subject/:subjectId',
           name: 'Subject',
           component: Subject
-        },
-        // {
-        //   path: 'status',
-        //   name: 'Status',
-        //   component: Status
-        // },
-        // {
-        //   path: 'group',
-        //   name: 'Group',
-        //   component: Group
-        // }
+        }
       ]
-    },
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
-    },
-    {
-      path: '/register',
-      name: 'Register',
-      component: Register
     }
 
   ]

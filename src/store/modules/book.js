@@ -128,6 +128,7 @@ export default {
               tag: 'imaginaryBook',
               data1: res.body.books
             })
+            console.log('http')
           }
         })
       superagent
@@ -140,6 +141,7 @@ export default {
               tag: 'unimaginaryBook',
               data1: res.body.books
             })
+            console.log('http')
           }
         })
     },

@@ -54,6 +54,7 @@ export default {
                     data1: res.body
                   })
                   resolve(res)
+                  console.log('http')
                 }
               })
             break
@@ -69,6 +70,7 @@ export default {
                     data1: res.body
                   })
                   resolve(res)
+                  console.log('http')
                 }
               })
             break

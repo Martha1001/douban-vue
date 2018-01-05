@@ -152,6 +152,7 @@ export default {
               tag: 'hotMovie',
               data1: res.body.subjects
             })
+            console.log('http')
           }
         })
       superagent
@@ -164,6 +165,7 @@ export default {
               tag: 'topMovie',
               data1: res.body.subjects
             })
+            console.log('http')
           }
         })
       superagent
@@ -176,6 +178,7 @@ export default {
               tag: 'newMovie',
               data1: res.body.subjects
             })
+            console.log('http')
           }
         })
     },
